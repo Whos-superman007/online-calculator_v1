@@ -1,2 +1,3 @@
 # online-calculator
-An online calculator where everyone can help
+An online calculator
+Everyone can help
