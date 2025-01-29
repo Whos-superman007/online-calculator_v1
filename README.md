@@ -1,19 +1,10 @@
-# online-calculator_v1
-An online calculator with CCS und PHP.
-Everyone can help or try the code.
 
-Keep in mind that I am a beginner and as this was done for a tiktok it's not done in a particularly clever way. There is prerequisite that you need in order to run it local.
-
-**Prerequisites**
-* [XAMPP control Pane](https://www.apachefriends.org/download.html)
-
-Once you have installed XAMMP you open up XAMMP and start XAMMP an look for the line with Apache and klick on start
 
 # 🧮 online-calculator_v1  
 An online calculator with CSS and PHP.  
 Everyone can help or try the code.  
 
-**Note:** Keep in mind that I am a beginner, and since this was created for a TikTok video, it is not optimized in a particularly clever way.  
+**Note:** Keep in mind that I am a beginner so it is not really optimized in a particularly clever way.  
 
 ## 🚀 Prerequisites  
 To run this project locally, you need the following:  
