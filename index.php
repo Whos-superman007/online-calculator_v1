@@ -3,13 +3,13 @@ session_start();
 
 // Initialisierung der Session-Variablen
 if (!isset($_SESSION['display'])) {
-    $_SESSION['display'] = '';
+    $_SESSION['display'] = ''; // Startet mit leerem Feld
 }
 if (!isset($_SESSION['is_result'])) {
-    $_SESSION['is_result'] = false; // Gibt an, ob das letzte Ergebnis berechnet wurde
+    $_SESSION['is_result'] = false;
 }
 if (!isset($_SESSION['disable_equals'])) {
-    $_SESSION['disable_equals'] = false; // Gibt an, ob "=" blockiert werden soll
+    $_SESSION['disable_equals'] = false;
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -17,47 +17,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Reset-Funktion
     if ($button === 'C') {
-        $_SESSION['display'] = '0';
+        $_SESSION['display'] = ''; // Jetzt wird das Feld komplett geleert
         $_SESSION['is_result'] = false;
         $_SESSION['disable_equals'] = false;
-
-    // Gleichheitszeichen gedrückt
+    
     } elseif ($button === '=') {
-        // Wenn "=" blockiert ist, abbrechen
         if ($_SESSION['disable_equals']) {
             $_SESSION['display'] = 'Ungültige Eingabe';
             return;
         }
 
-        // Überprüfen, ob der Ausdruck vollständig ist
         $expression = $_SESSION['display'];
-        if (preg_match('/[+\-\*\/]$/', $expression)) { // Ausdruck endet auf einen Operator
+        if (preg_match('/[+\-*\/]$/', $expression)) {
             $_SESSION['display'] = 'Fehler: Unvollständiger Ausdruck';
             $_SESSION['is_result'] = true;
         } else {
             try {
-                // Eval-Ausdruck ausführen
                 $_SESSION['display'] = eval('return ' . $expression . ';');
                 $_SESSION['is_result'] = true;
-                $_SESSION['disable_equals'] = true; // Blockiere "=" nach Berechnung
+                $_SESSION['disable_equals'] = true;
             } catch (Exception $e) {
                 $_SESSION['display'] = 'Fehler';
             }
         }
-
-    // Normale Eingabe nach Ergebnis
     } elseif ($_SESSION['is_result']) {
         if (is_numeric($button)) {
-            $_SESSION['display'] = $button; // Startet eine neue Eingabe
+            $_SESSION['display'] = $button;
             $_SESSION['is_result'] = false;
-            $_SESSION['disable_equals'] = false; // Aktiviert "=" wieder
+            $_SESSION['disable_equals'] = false;
         } else {
             $_SESSION['display'] = 'Ungültige Eingabe';
         }
-
-    // Normale Eingabe
     } else {
-        if ($_SESSION['display'] === '0' || $_SESSION['display'] === 'Fehler') {
+        if ($_SESSION['display'] === '' || $_SESSION['display'] === 'Fehler') {
             $_SESSION['display'] = $button;
         } else {
             $_SESSION['display'] .= $button;
@@ -73,41 +65,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Taschenrechner</title>
     <link rel="stylesheet" href="style.css">
-    
 </head>
 <body>
-    <div class="calculator">
-        <form method="POST">
-            <div class="display">
-                <?php
-                // Aktuelle Anzeige ausgeben
-                echo htmlspecialchars($_SESSION['display']);
-                ?>
-            </div>
-            <div class="buttons">
-                <!-- Zahlen und Operatoren -->
-                <button type="submit" name="button" value="7">7</button>
-                <button type="submit" name="button" value="8">8</button>
-                <button type="submit" name="button" value="9">9</button>
-                <button type="submit" name="button" value="/" class="equals" <?php if ($_SESSION['disable_equals']) echo 'disabled'; ?>>÷</button>
+    <div class="calculator-container">
+        <div class="calculator">
+            <form method="POST">
+                <div class="display">
+                    <?php echo htmlspecialchars($_SESSION['display']); ?>
+                </div>
+                <div class="buttons">
+                    <button type="submit" name="button" value="7">7</button>
+                    <button type="submit" name="button" value="8">8</button>
+                    <button type="submit" name="button" value="9">9</button>
+                    <button type="submit" name="button" value="/" class="equals" <?php if ($_SESSION['disable_equals']) echo 'disabled'; ?>>÷</button>
 
-                <button type="submit" name="button" value="4">4</button>
-                <button type="submit" name="button" value="5">5</button>
-                <button type="submit" name="button" value="6">6</button>
-                <button type="submit" name="button" value="*" class="equals" <?php if ($_SESSION['disable_equals']) echo 'disabled'; ?>>×</button>
+                    <button type="submit" name="button" value="4">4</button>
+                    <button type="submit" name="button" value="5">5</button>
+                    <button type="submit" name="button" value="6">6</button>
+                    <button type="submit" name="button" value="*" class="equals" <?php if ($_SESSION['disable_equals']) echo 'disabled'; ?>>×</button>
 
-                <button type="submit" name="button" value="1">1</button>
-                <button type="submit" name="button" value="2">2</button>
-                <button type="submit" name="button" value="3">3</button>
-                <button type="submit" name="button" value="-" class="equals" <?php if ($_SESSION['disable_equals']) echo 'disabled'; ?>>-</button>
+                    <button type="submit" name="button" value="1">1</button>
+                    <button type="submit" name="button" value="2">2</button>
+                    <button type="submit" name="button" value="3">3</button>
+                    <button type="submit" name="button" value="-" class="equals" <?php if ($_SESSION['disable_equals']) echo 'disabled'; ?>>-</button>
 
-                <button type="submit" name="button" value="C">C</button>
-                <button type="submit" name="button" value="0">0</button>
-                <!-- "=" bleibt gelb auch wenn es deaktiviert ist -->
-                <button type="submit" name="button" value="=" class="equals" <?php if ($_SESSION['disable_equals']) echo 'disabled'; ?>>=</button>
-                <button type="submit" name="button" value="+" class="equals" <?php if ($_SESSION['disable_equals']) echo 'disabled'; ?>>+</button>
-            </div>
-        </form>
+                    <button type="submit" name="button" value="C">C</button>
+                    <button type="submit" name="button" value="0">0</button>
+                    <button type="submit" name="button" value="=" class="equals" <?php if ($_SESSION['disable_equals']) echo 'disabled'; ?>>=</button>
+                    <button type="submit" name="button" value="+" class="equals" <?php if ($_SESSION['disable_equals']) echo 'disabled'; ?>>+</button>
+                </div>
+            </form>
+        </div>
     </div>
 </body>
 </html>
