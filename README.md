@@ -1,6 +1,6 @@
 
 
-# 🧮 online-calculator_v1  
+# 🧮 online-calculator_v2 
 An online calculator with CSS and PHP.  
 Everyone can help or try the code.  
 
@@ -19,15 +19,15 @@ To run this project locally, you need the following:
 - Find the row with **Apache** and click **Start** to activate the local server.  
 
 ### 2️⃣ Move Project Files  
-- Copy the project folder (`online-calculator_v1`) into the `htdocs` directory inside the XAMPP installation folder.  
-  - Example path: `C:\xampp\htdocs\online-calculator_v1` (on Windows)  
-  - For macOS/Linux, it might be `/Applications/XAMPP/htdocs/online-calculator_v1`  
+- Copy the project folder (`online-calculator_v2`) into the `htdocs` directory inside the XAMPP installation folder.  
+  - Example path: `C:\xampp\htdocs\online-calculator_v2` (on Windows)  
+  - For macOS/Linux, it might be `/Applications/XAMPP/htdocs/online-calculator_v2`  
 
 ### 3️⃣ Run the Project in Your Browser  
 - Open your web browser.  
 - Enter the following URL in the address bar:  
   ```
-  http://localhost/online-calculator_v1/
+  http://localhost/online-calculator_v2/
   ```
 - The calculator should now be running in your browser! 🎉  
 
@@ -35,4 +35,4 @@ To run this project locally, you need the following:
 If the project does not open:  
 1. Ensure Apache is running in the XAMPP Control Panel.  
 2. Check that the project folder is inside `htdocs`.  
-3. Try restarting XAMPP and reloading `http://localhost/online-calculator_v1/`.  
+3. Try restarting XAMPP and reloading `http://localhost/online-calculator_v2/`.  
